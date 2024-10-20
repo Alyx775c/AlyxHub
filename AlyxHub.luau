@@ -1,0 +1,140 @@
+local Players = game:GetService("Players")
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local RunService = game:GetService("RunService")
+local Rayfield = loadstring(game:HttpGet("https://sirius.menu/rayfield"))()
+
+local GameplayEvents = game:GetService("ReplicatedStorage"):FindFirstChild("Remotes"):FindFirstChild("Gameplay")
+
+local Window = Rayfield:CreateWindow({
+	Name = "Alyx Hub : Rayfield Edition",
+	LoadingTitle = "",
+	LoadingSubtitle = "by alyx775c",
+	ConfigurationSaving = {
+		Enabled = true,
+		FolderName = "AlyxHub", -- Create a custom folder for your hub/game
+		FileName = "Big Hub",
+	},
+	Discord = {
+		Enabled = false,
+		Invite = "noinvitelink", -- The Discord invite code, do not include discord.gg/. E.g. discord.gg/ABCD would be ABCD
+		RememberJoins = true, -- Set this to false to make them join the discord every time they load it up
+	},
+	KeySystem = true, -- Set this to true to use our key system
+	KeySettings = {
+		Title = "",
+		Subtitle = "Key System",
+		Note = "",
+		FileName = "AlyxHubMM2key", -- It is recommended to use something unique as other scripts using Rayfield may overwrite your key file
+		SaveKey = true, -- The user's key will be saved, but if you change the key, they will be unable to use your script
+		GrabKeyFromSite = false, -- If this is true, set Key below to the RAW site you would like Rayfield to get the key from
+		Key = { "AlyxHub__723jjhyCnyxnAL" }, -- List of keys that will be accepted by the system, can be RAW file links (pastebin, github etc) or simple strings ("hello","key22")
+	},
+})
+
+local MM2Events = {
+	["RoundStart"] = GameplayEvents:FindFirstChild("RoundStart"),
+	["KnifeKill"] = GameplayEvents:FindFirstChild("KnifeKill"),
+	["GunKill"] = GameplayEvents:FindFirstChild("GunKill"),
+}
+
+local MainTab = Window:CreateTab("🏠 Home", nil)
+local VisualTab = Window:CreateTab("👁️ Visuals", nil)
+local MovementTab = Window:CreateTab("🏃‍♂️ Movement", nil)
+
+
+--#region Chams
+local SheriffColor = VisualTab:CreateColorPicker({
+	Name = "Sheriff Color",
+	Color = Color3.fromRGB(0, 0, 255),
+	Flag = "SheriffColor",
+})
+
+local MurdererColor = VisualTab:CreateColorPicker({
+	Name = "Murderer Color",
+	Color = Color3.fromRGB(255, 0, 0),
+	Flag = "MurdererColor",
+})
+
+local RefreshChams = function()
+	for _, player in Players:GetPlayers() do
+		local char = player.Character
+
+		local highlight
+
+		if not char:FindFirstChild("Highlight") then
+			highlight = Instance.new("Highlight")
+		else
+			highlight = char:FindFirstChild("Highlight")
+		end
+		highlight.Adornee = char
+		highlight.Parent = char
+		highlight.FillTransparency = 1
+		highlight.OutlineTransparency = 0
+
+		if player.Backpack:FindFirstChild("Knife") then
+			highlight.FillColor = MurdererColor.Color
+			highlight.FillTransparency = 0
+			highlight.OutlineTransparency = 1
+			print("Player: " .. player.Name .. " is the one with a knife")
+		end
+
+		if player.Backpack:FindFirstChild("Gun") then
+			highlight.FillColor = SheriffColor.Color
+			highlight.FillTransparency = 0
+			highlight.OutlineTransparency = 1
+			print("Player: " .. player.Name .. " is the sheriff")
+		end
+	end
+end
+local DetectGunDrop = function()
+	for _, v in workspace:GetDescendants() do
+		if v.Name == "GunDrop" then
+			return v
+		end
+	end
+
+	return nil
+end
+function GunChams()
+	local GunDropped = DetectGunDrop()
+
+	if GunDropped and not GunDropped:FindFirstChild("Highlight") then
+		local highlight = Instance.new("Highlight")
+		highlight.Parent = GunDropped
+		highlight.FillColor = Color3.fromRGB(255, 255, 0)
+		highlight.OutlineTransparency = 1
+	end
+end
+local ChamsButton = VisualTab:CreateToggle({
+	Name = "Chams",
+	CurrentValue = false,
+	Flag = "ChamsFlag",
+	Callback = function(val)
+		local knifeEvent = MM2Events["KnifeKill"].Event:Connect(GunChams)
+		local gunEvent = MM2Events["GunKill"].Event:Connect(GunChams)
+
+		if val then
+			RefreshChams()
+			knifeEvent = MM2Events["KnifeKill"].Event:Connect(GunChams)
+			gunEvent = MM2Events["GunKill"].Event:Connect(GunChams)
+		else
+			knifeEvent:Disconnect()
+			gunEvent:Disconnect()
+
+			for _, plr in Players:GetPlayers() do
+				if plr.Character:FindFirstChild("Highlight") then
+					plr.Character:FindFirstChild("Highlight"):Destroy()
+				end
+			end
+		end
+	end,
+})
+--#endregion
+
+
+
+MM2Events["RoundStart"].OnClientEvent:Connect(function()
+	if ChamsButton.CurrentValue then
+		RefreshChams()
+	end
+end)
