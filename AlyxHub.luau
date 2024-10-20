@@ -6,6 +6,8 @@ local Rayfield = loadstring(game:HttpGet("https://sirius.menu/rayfield"))()
 local Visuals = loadstring(game:HttpGet("https://raw.githubusercontent.com/Alyx775c/AlyxHub/refs/heads/main/MM2/Visuals.luau"))
 local Chams = Visuals.Chams
 
+local Movement = loadstring(game:HttpGet("https://raw.githubusercontent.com/Alyx775c/AlyxHub/refs/heads/main/Universal/Movement.luau"))
+
 --#endregion
 
 local GameplayEvents = game:GetService("ReplicatedStorage"):FindFirstChild("Remotes"):FindFirstChild("Gameplay")
@@ -46,8 +48,9 @@ local MainTab = Window:CreateTab("🏠 Home", nil)
 local VisualTab = Window:CreateTab("👁️ Visuals", nil)
 local MovementTab = Window:CreateTab("🏃‍♂️ Movement", nil)
 
+local LocalPlayer = Players.LocalPlayer
 
---#region Chams
+--#region Visuals
 local SheriffColor = VisualTab:CreateColorPicker({
 	Name = "Sheriff Color",
 	Color = Color3.fromRGB(0, 0, 255),
@@ -105,9 +108,24 @@ local ChamsButton = VisualTab:CreateToggle({
 })
 --#endregion
 
+--#region Movement
+MovementTab:CreateSlider({
+	Name = "Walkspeed",
+	Range = {12, 100},
+	Increment = 1,
+	Suffix = "",
+	CurrentValue = 10,
+	Flag = "WalkspeedSlider",
+	Callback = function(Value)
+		Movement:ChangeWalkspeed(LocalPlayer, Value)
+	end,
+ })
+--#endregion
 
+--#region Events
 MM2Events["RoundStart"].OnClientEvent:Connect(function()
 	if ChamsButton.CurrentValue then
 		Chams:RefreshChams(MurdererColor.Color, SheriffColor.Color)
 	end
 end)
+--#endregion
