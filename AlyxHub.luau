@@ -114,7 +114,7 @@ MovementTab:CreateSlider({
 	Range = {12, 100},
 	Increment = 1,
 	Suffix = "",
-	CurrentValue = 10,
+	CurrentValue = 16,
 	Flag = "WalkspeedSlider",
 	Callback = function(Value)
 		Movement:ChangeWalkspeed(LocalPlayer, Value)
