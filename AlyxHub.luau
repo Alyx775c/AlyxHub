@@ -51,6 +51,7 @@ local MovementTab = Window:CreateTab("🏃‍♂️ Movement", nil)
 local LocalPlayer = Players.LocalPlayer
 
 --#region Visuals
+VisualTab:CreateSection("Chams")
 local SheriffColor = VisualTab:CreateColorPicker({
 	Name = "Sheriff Color",
 	Color = Color3.fromRGB(0, 0, 255),
