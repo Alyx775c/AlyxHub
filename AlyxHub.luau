@@ -3,10 +3,10 @@ local Rayfield = loadstring(game:HttpGet("https://sirius.menu/rayfield"))()
 
 --#region Cheat Modules
 
-local Visuals = loadstring(game:HttpGet("https://raw.githubusercontent.com/Alyx775c/AlyxHub/refs/heads/main/MM2/Visuals.luau"))
+local Visuals = loadstring(game:HttpGet("https://raw.githubusercontent.com/Alyx775c/AlyxHub/refs/heads/main/MM2/Visuals.luau"))()
 local Chams = Visuals.Chams
 
-local Movement = loadstring(game:HttpGet("https://raw.githubusercontent.com/Alyx775c/AlyxHub/refs/heads/main/Universal/Movement.luau"))
+local Movement = loadstring(game:HttpGet("https://raw.githubusercontent.com/Alyx775c/AlyxHub/refs/heads/main/Universal/Movement.luau"))()
 
 --#endregion
 
