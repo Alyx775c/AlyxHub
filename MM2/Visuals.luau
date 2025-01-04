@@ -6,6 +6,7 @@ local Visuals = {
 function Visuals.Chams:RefreshChams(MurdererColor, SheriffColor)
     for _, player in Players:GetPlayers() do
 		local char = player.Character
+		if not char then return end
 
 		local highlight
 
