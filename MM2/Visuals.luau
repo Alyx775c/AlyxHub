@@ -33,6 +33,7 @@ game:GetService("TextChatService").TextChannels.RBXGeneral:SendAsync("The murder
 			highlight.OutlineTransparency = 1
 			print("Player: " .. player.DisplayName .. " is the sheriff")
 		end
+print(player.Backpack)
 	end
 end
 
