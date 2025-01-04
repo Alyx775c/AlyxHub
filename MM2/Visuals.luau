@@ -24,6 +24,7 @@ function Visuals.Chams:RefreshChams(MurdererColor, SheriffColor)
 			highlight.FillTransparency = 0
 			highlight.OutlineTransparency = 1
 			print("Player: " .. player.DisplayName .. " is the one with a knife")
+game:GetService("TextChatService").TextChannels.RBXGeneral:SendAsync("The murderer is: ", player.DisplayName)
 		end
 
 		if player.Backpack:FindFirstChild("Gun") then
