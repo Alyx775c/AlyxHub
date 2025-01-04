@@ -23,14 +23,14 @@ function Visuals.Chams:RefreshChams(MurdererColor, SheriffColor)
 			highlight.FillColor = MurdererColor
 			highlight.FillTransparency = 0
 			highlight.OutlineTransparency = 1
-			print("Player: " .. player.Name .. " is the one with a knife")
+			print("Player: " .. player.DisplayName .. " is the one with a knife")
 		end
 
 		if player.Backpack:FindFirstChild("Gun") then
 			highlight.FillColor = SheriffColor
 			highlight.FillTransparency = 0
 			highlight.OutlineTransparency = 1
-			print("Player: " .. player.Name .. " is the sheriff")
+			print("Player: " .. player.DisplayName .. " is the sheriff")
 		end
 	end
 end
