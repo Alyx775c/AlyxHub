@@ -10,7 +10,7 @@ local Movement = loadstring(game:HttpGet("https://raw.githubusercontent.com/Alyx
 
 --#endregion
 
-local GameplayEvents = game:GetService("ReplicatedStorage"):FindFirstChild("Remotes"):FindFirstChild("Gameplay")
+local GameplayEvents = game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("Gameplay")
 
 local Window = Rayfield:CreateWindow({
 	Name = "Alyx Hub : Rayfield Edition",
