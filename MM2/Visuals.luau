@@ -1,12 +1,19 @@
 local Players = game:GetService("Players")
 local Visuals = {
-	Chams = {}
+	Chams = {},
 }
 
+function Visuals.new()
+	local self = setmetatable({}, Visuals)
+	return self
+end
+
 function Visuals.Chams:RefreshChams(MurdererColor, SheriffColor)
-    for _, player in Players:GetPlayers() do
+	for _, player in Players:GetPlayers() do
 		local char = player.Character
-		if not char then return end
+		if not char then
+			return
+		end
 
 		print(player.Backpack)
 		local highlight
@@ -25,7 +32,7 @@ function Visuals.Chams:RefreshChams(MurdererColor, SheriffColor)
 			highlight.FillTransparency = 0
 			highlight.OutlineTransparency = 1
 			print("Player: " .. player.DisplayName .. " is the one with a knife")
-game:GetService("TextChatService").TextChannels.RBXGeneral:SendAsync(player.DisplayName .. " knife")
+			game:GetService("TextChatService").TextChannels.RBXGeneral:SendAsync(player.DisplayName .. " knife")
 		end
 
 		if player.Backpack:FindFirstChild("Gun") then

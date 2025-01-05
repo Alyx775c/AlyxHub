@@ -3,7 +3,7 @@ local Rayfield = loadstring(game:HttpGet("https://sirius.menu/rayfield"))()
 
 --#region Cheat Modules
 
-local Visuals = loadstring(game:HttpGet("https://raw.githubusercontent.com/Alyx775c/AlyxHub/refs/heads/main/MM2/Visuals.luau"))()
+local Visuals = loadstring(game:HttpGet("https://raw.githubusercontent.com/Alyx775c/AlyxHub/refs/heads/main/MM2/Visuals.luau"))().new()
 local Chams = Visuals.Chams
 
 local Movement = loadstring(game:HttpGet("https://raw.githubusercontent.com/Alyx775c/AlyxHub/refs/heads/main/Universal/Movement.luau"))()
@@ -63,6 +63,11 @@ local MurdererColor = VisualTab:CreateColorPicker({
 	Color = Color3.fromRGB(255, 0, 0),
 	Flag = "MurdererColor",
 })
+local ToggleChatsay = VisualTab:CreateToggle({
+	Name = "Toggle Chatsay",
+	CurrentValue = false,
+	Flag = "Chatsay",
+ })
 
 local DetectGunDrop = function()
 	for _, v in workspace:GetDescendants() do
@@ -95,6 +100,21 @@ local ChamsButton = VisualTab:CreateToggle({
 			Chams:RefreshChams(MurdererColor.Color, SheriffColor.Color)
 			knifeEvent = MM2Events["KnifeKill"].Event:Connect(GunChams)
 			gunEvent = MM2Events["GunKill"].Event:Connect(GunChams)
+			if ToggleChatsay.CurrentValue then
+				for _, v in game:GetService("Players"):GetPlayers() do
+					local names = {}
+					for _, v1 in pairs(v.Backpack:GetChildren()) do
+						names[#names + 1] = v1
+							if v1.Name == "Knife" then
+								game:GetService("TextChatService").TextChannels.RBXGeneral:SendAsync(v.DisplayName .. " has the knife!")
+							else
+								if v1.Name == "Gun" then
+								game:GetService("TextChatService").TextChannels.RBXGeneral:SendAsync(v.DisplayName .. " currently has the gun!")
+							end
+						end
+					end
+				end
+			end
 		else
 			knifeEvent:Disconnect()
 			gunEvent:Disconnect()
