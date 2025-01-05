@@ -10,7 +10,9 @@ local Movement = loadstring(game:HttpGet("https://raw.githubusercontent.com/Alyx
 
 --#endregion
 
-local GameplayEvents = game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("Gameplay")
+local GameplayEvents = game:GetService("ReplicatedStorage")
+:WaitForChild("Remotes")
+:WaitForChild("Gameplay")
 
 local Window = Rayfield:CreateWindow({
 	Name = "Alyx Hub : Rayfield Edition",
@@ -67,7 +69,7 @@ local ToggleChatsay = VisualTab:CreateToggle({
 	Name = "Toggle Chatsay",
 	CurrentValue = false,
 	Flag = "Chatsay",
- })
+})
 
 local DetectGunDrop = function()
 	for _, v in workspace:GetDescendants() do
