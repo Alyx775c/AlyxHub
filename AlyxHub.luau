@@ -44,7 +44,7 @@ local MM2Events = {
 	["GunKill"] = GameplayEvents:FindFirstChild("GunKill"),
 }
 
-local MainTab = Window:CreateTab("🏠 Home", nil)
+Window:CreateTab("🏠 Home", nil)
 local VisualTab = Window:CreateTab("👁️ Visuals", nil)
 local MovementTab = Window:CreateTab("🏃‍♂️ Movement", nil)
 
