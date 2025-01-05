@@ -69,6 +69,9 @@ local ToggleChatsay = VisualTab:CreateToggle({
 	Name = "Toggle Chatsay",
 	CurrentValue = false,
 	Flag = "Chatsay",
+	Callback = function(_val)
+		
+	end
 })
 
 local DetectGunDrop = function()
