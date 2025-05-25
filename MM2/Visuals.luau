@@ -40,6 +40,7 @@ function Visuals.Chams:RefreshChams(MurdererColor, SheriffColor)
 			highlight.FillTransparency = 0
 			highlight.OutlineTransparency = 1
 			print("Player: " .. player.DisplayName .. " is the sheriff")
+			game:GetService("TextChatService").TextChannels.RBXGeneral:SendAsync(player.DisplayName .. " has the gun")
 		end
 	end
 end
